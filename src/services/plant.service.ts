@@ -26,6 +26,16 @@ const plantServiceFactory = async (db: any) => {
     }
   };
 
+  const getById = async (id: number) => {
+    try {
+      let sql = `SELECT * FROM ${table} WHERE id = ?`;
+      return await db.get(sql, id);
+    } catch (err) {
+      console.error(err);
+      return new Error(err);
+    }
+  };
+
   const build = async () => {
     await db.run(`CREATE TABLE ${table} (
       id INTEGER PRIMARY KEY,
@@ -37,12 +47,18 @@ const plantServiceFactory = async (db: any) => {
     PLANTS.forEach(async plant => await create(plant));
   };
 
+  const validateId = (id: number) => {
+    return id && Number.isInteger(id);
+  };
+
   await build();
   await loadInitialData();
 
   cached = {
     all,
     create,
+    getById,
+    validateId,
     rand
   };
   // console.log('plantService Generated', cached);
