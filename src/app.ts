@@ -1,32 +1,26 @@
-import express from 'express';
-import services from './config/services';
-import containerFactory from './container/container';
-import express_graphql from 'express-graphql';
-import { schema, root } from './database/database';
+import { GraphQLServer, PubSub } from 'graphql-yoga'
 
-const container = containerFactory(services);
+// import services from './config/services';
+// import containerFactory from './container/container';
+import db from './database/database';
 
-const seedApp = async () => {
-  const app: express.Application = express();
+// const container = containerFactory(services);
 
-  // app.get('/', async (req, res) => {
-  //   return res.send('Hello World');
-  // });
+const pubsub = new PubSub();
+const resolvers = {
 
-  // app.use('/plants', await container.get('plantController'));
-
-  app.use(
-    '/graphql',
-    express_graphql({
-      schema: schema,
-      rootValue: root,
-      graphiql: true
-    })
-  );
-
-  app.listen(process.env.PORT || 3000, () => {
-    console.log(`Appp listening on port ${process.env.PORT || 3000}`);
-  });
 };
 
-seedApp();
+const server = new GraphQLServer({
+  typeDefs: './database/schema.graphql',
+  resolvers,
+  context: {
+    db,
+    pubsub
+  }
+})
+
+
+server.start(() => {
+  console.log('The server is up!')
+})

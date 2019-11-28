@@ -1,5 +1,5 @@
-import { PLANTS } from '../data/plant.data';
-import { PlantInterface } from '../types/plant.type';
+import db from '../database/database';
+import IPlant from '../types/plant.type';
 
 let cached: any = null;
 
@@ -15,7 +15,7 @@ const plantServiceFactory = async (db: any) => {
     return await db.all(`SELECT * FROM ${table}`);
   };
 
-  const create = async (plant: PlantInterface) => {
+  const create = async (plant: IPlant) => {
     // console.log(`create ${plant.name}`);
     try {
       let sql = `INSERT INTO ${table} (id, name) VALUES (?, ?)`;
@@ -44,7 +44,7 @@ const plantServiceFactory = async (db: any) => {
   };
 
   const loadInitialData = async () => {
-    PLANTS.forEach(async plant => await create(plant));
+    db.plants.forEach(async plant => await create(plant));
   };
 
   const validateId = (id: number) => {

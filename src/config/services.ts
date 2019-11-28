@@ -6,7 +6,6 @@ const database = require('sqlite-async');
 const services = {
   plantController: async (container: any) => {
     const plantService = await container.get('plantService');
-    // console.log('plantService', plantService);
     return plantControllerFactory(plantService);
   },
   plantService: async (container: any) => {
@@ -15,7 +14,6 @@ const services = {
   },
   db: async (container: any) => {
     const db = await database.open(':memory:');
-    // console.log('db', db);
     return db;
   }
 };

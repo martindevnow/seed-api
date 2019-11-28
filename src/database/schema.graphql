@@ -1,0 +1,33 @@
+type Query {
+  plant(id: ID!): Plant
+  plants: [Plant!]!
+}
+
+type Plant {
+  id: ID!
+  name: String!
+  species: String!
+  strain: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type StatusChange {
+  id: ID!
+  type: StatusType!
+  date: String!
+  time: String!
+  value: Float!
+  unit: String!
+}
+
+type StatusType {
+  id: ID!
+  icon: String!
+  label: String!
+  units: [String!]!
+}
