@@ -8,30 +8,41 @@ const PLANTS: IPlant[] = [
   { id: 'p2', name: 'yours', species: 'C', strain: 'D' }
 ];
 
-const USERS: IUser[] = [
-  { id: 'u1', name: 'me', email: 'ben@me.com' },
-];
+const USERS: IUser[] = [{ id: 'u1', name: 'me', email: 'ben@me.com' }];
 
 const STATUS_TYPES: IStatusType[] = [
-  { label: 'Planted', icon: 'planted' },
-  { label: 'Germinated', icon: 'germinated' },
-  { label: 'Seedling', icon: 'seedling' },
-  { label: 'Cutting', icon: 'cutting' },
-  { label: 'Vegetation', icon: 'vegetation' },
-  { label: 'Flowering', icon: 'flowering' },
-  { label: 'Drying', icon: 'drying' },
-  { label: 'Curing', icon: 'curing' },
-  { label: 'Harvested', icon: 'harvested' },
+  { id: 'PLANTED', label: 'Planted', icon: 'planted' },
+  { id: 'GERMINATED', label: 'Germinated', icon: 'germinated' },
+  { id: 'SEEDLING', label: 'Seedling', icon: 'seedling' },
+  { id: 'CUTTING', label: 'Cutting', icon: 'cutting' },
+  { id: 'VEGETATION', label: 'Vegetation', icon: 'vegetation' },
+  { id: 'FLOWERING', label: 'Flowering', icon: 'flowering' },
+  { id: 'DRYING', label: 'Drying', icon: 'drying' },
+  { id: 'CURING', label: 'Curing', icon: 'curing' },
+  { id: 'HARVESTED', label: 'Harvested', icon: 'harvested' }
 ];
 
 const STATUS_CHANGES: IStatusChange[] = [
-  { id: 'sc1', plant: 'p1', type: 'planted', date: '2019-06-01', time: '12:00:00', value: 1 },
-  { id: 'sc1', plant: 'p1', type: 'planted', date: '2019-06-01', time: '12:00:00', value: 1 },
-]
-
+  {
+    id: 'sc1',
+    plant: 'p1',
+    type: 'planted',
+    date: '2019-06-01',
+    time: '12:00:00',
+    value: 1
+  },
+  {
+    id: 'sc1',
+    plant: 'p1',
+    type: 'planted',
+    date: '2019-06-01',
+    time: '12:00:00',
+    value: 1
+  }
+];
 
 const db = {
-  plants: PLANTS,
+  plants: PLANTS
 };
 
 export { db as default };

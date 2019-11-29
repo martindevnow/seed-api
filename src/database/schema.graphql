@@ -3,11 +3,47 @@ type Query {
   plants: [Plant!]!
 }
 
+# This is an area where plants or equipment can be allocated to
+type Zone {
+  id: ID!
+  owner: User! # many-zones to one-user
+  label: String!
+  icon: String
+}
+
+# Category for Items to Belong to
+type EquipCategory {
+  id: ID!
+  label: String!
+}
+
+# Equipment is a repository of items, tools, lights, etc
+type Equipment {
+  id: ID!
+  category: EquipCategory! # one-category to many-equipment
+  label: String!
+  description: String!
+  value: Float!
+  unit: String!
+}
+
+# Gear is 'Equipment' that is owned
+type OwnedEquipment {
+  id: ID!
+  quantity: Float!
+  item: Equipment! # many-O.equipment to one-equipment
+  owner: User! # many-O.equipment to one-user
+  zone: Zone # many-O.equipment to one-zone
+  plant: Plant # many-O.equipment to one-plant
+}
+
 type Plant {
   id: ID!
+  owner: User! # many-plants to one-user
   name: String!
   species: String!
   strain: String
+  zone: Zone # many-plants to one-zone (nullable for harvested/curing, etc)
 }
 
 type User {
@@ -16,16 +52,17 @@ type User {
   email: String!
 }
 
-type StatusChange {
+type PlantStatus {
   id: ID!
-  type: StatusType!
+  plant: Plant! # many-status to one-plant
+  type: PlantState! # many-status to one-state
   date: String!
   time: String!
   value: Float!
   unit: String!
 }
 
-type StatusType {
+type PlantState {
   id: ID!
   icon: String!
   label: String!
